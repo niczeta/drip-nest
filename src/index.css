@@ -24,18 +24,18 @@ html {
 .loader {
   position: relative;
   animation: ovalRotate 2s linear infinite, rotateRed 1s linear infinite;
-  box-shadow: 0 0 0 10px lightcoral;
+  box-shadow: 0 0 0 10px #731818;
 }
 
 .loader::before {
   position: absolute;
-  box-shadow: 0 0 0 10px lemonchiffon;
+  box-shadow: 0 0 0 10px #731818;
   transform: rotate(60deg);
 }
 
 .loader::after {
   position: absolute;
-  box-shadow: 0 0 0 10px lightblue;
+  box-shadow: 0 0 0 10px #731818;
   transform: rotate(-60deg);
 }
 

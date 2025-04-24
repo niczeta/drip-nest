@@ -1,14 +1,14 @@
-import { useNavigate, useLocation } from 'react-router-dom';
-import { ShoppingBag, User } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import { MobileMenu } from './MobileMenu';
+import { useNavigate, useLocation } from "react-router-dom";
+import { ShoppingBag, User } from "lucide-react";
+import { useState, useEffect } from "react";
+import { MobileMenu } from "./MobileMenu";
 
 const sections = ["Home", "Shop", "Drop", "Contact"];
 
 export const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [activeSection, setActiveSection] = useState('Home');
+  const [activeSection, setActiveSection] = useState("Home");
 
   useEffect(() => {
     if (location.pathname === "/shop") {
@@ -16,7 +16,9 @@ export const Navbar = () => {
     } else if (location.pathname === "/cart") {
       setActiveSection("Cart");
     } else if (location.pathname === "/checkout") {
-      setActiveSection(""); // Nessuna sezione attiva in checkout
+      setActiveSection("");
+    } else if (location.pathname === "/" && location.state?.scrollToContact) {
+      setActiveSection("Contact");
     } else {
       setActiveSection("Home");
     }
@@ -62,7 +64,7 @@ export const Navbar = () => {
             className={`
               text-lg cursor-pointer relative 
               after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:bg-red-500 after:transition-all after:duration-300 
-              ${activeSection === item ? 'after:w-full' : 'after:w-0 hover:after:w-full'}
+              ${activeSection === item ? "after:w-full" : "after:w-0 hover:after:w-full"}
             `}
           >
             {item}
@@ -77,7 +79,7 @@ export const Navbar = () => {
       <div className="gap-x-8 hidden md:flex">
         <ShoppingBag
           className="cursor-pointer hover:text-neutral-400"
-          onClick={() => navigate('/cart')}
+          onClick={() => navigate("/cart")}
         />
         <User className="cursor-pointer hover:text-neutral-400" />
       </div>

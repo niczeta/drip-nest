@@ -22,7 +22,7 @@ export const Checkout = () => {
           <div className="flex flex-col items-center gap-6">
             <Loader2 className="animate-spin text-red-500" size={64} />
             <h2 className="text-2xl font-semibold">Processing Payment...</h2>
-            <p className="text-neutral-400">Please wait a few seconds while we process your order.</p>
+            <p className="text-neutral-400 text-center whitespace-normal break-words max-w-[16rem] sm:max-w-none">Please wait a few seconds while we process your order.</p>
           </div>
         ) : (
           <div className="flex flex-col items-center gap-6 text-center">
