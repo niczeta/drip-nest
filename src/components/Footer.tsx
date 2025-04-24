@@ -7,7 +7,7 @@ export const Footer = () => (
       {/* Logo Section (added at the beginning) */}
       <div className="flex ml-6 justify-center sm:justify-start mb-6 sm:mb-0">
         <img
-          src="public/logo-footer2.png"
+          src="/logo-footer2.png"
           className="h-24"
         />
       </div>
