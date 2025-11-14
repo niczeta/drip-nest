@@ -1,79 +1,112 @@
-import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { Loader } from './components/Loader';
-import { Navbar } from './components/Navbar';
-import { Shop } from './sections/Shop';
-import { Home } from './sections/Home';
-import { Cart } from './sections/Cart';
-import { Checkout } from './sections/Checkout'; // ✅ IMPORTA IL COMPONENTE
-import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import { Loader } from "./components/Loader";
+import { Layout } from "./sections/Layout";
+import { Checkout } from "./sections/Checkout";
+import { AnimatePresence, motion } from "framer-motion";
+import { ScrollToTop } from "./sections/ScrollToTop";
+import { Cart } from "./paths/Cart";
+import { Shop } from "./paths/Shop";
+import { Home } from "./paths/Home";
+import { Drops } from "./paths/Drops";
+import { Community } from "./paths/Community";
+import { AuthPage } from "./paths/AuthPage";
 
-function AnimatedRoutes() {
+// Wrapper component for animated page transitions
+function AnimatedPage({ children }: { children: React.ReactNode }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4 }}
+      className="bg-neutral-950"
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// Routes wrapper to capture location changes for animations
+function AppRoutes() {
   const location = useLocation();
 
   return (
-    <div className="relative">
+    <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
+        {/* Layout wrapper that includes Navbar and Footer */}
+        <Route element={<Layout />}>
+          <Route
+            path="/"
+            element={
+              <AnimatedPage>
+                <Home />
+              </AnimatedPage>
+            }
+          />
+          <Route
+            path="/shop"
+            element={
+              <AnimatedPage>
+                <Shop />
+              </AnimatedPage>
+            }
+          />
+          <Route
+            path="/drops"
+            element={
+              <AnimatedPage>
+                <Drops />
+              </AnimatedPage>
+            }
+          />
+          <Route
+            path="/community"
+            element={
+              <AnimatedPage>
+                <Community />
+              </AnimatedPage>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <AnimatedPage>
+                <Cart />
+              </AnimatedPage>
+            }
+          />
+          <Route
+            path="/checkout"
+            element={
+              <AnimatedPage>
+                <Checkout />
+              </AnimatedPage>
+            }
+          />
         <Route
-          path="/"
-          element={
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-            >
-              <Home />
-            </motion.div>
-          }
-        />
-        <Route
-          path="/shop"
-          element={
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-            >
-              <Shop />
-            </motion.div>
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-            >
-              <Cart />
-            </motion.div>
-          }
-        />
-        <Route
-          path="/checkout" // ✅ NUOVA ROTTA
-          element={
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-            >
-              <Checkout />
-            </motion.div>
-          }
-        />
+            path="/auth"
+            element={
+              <AnimatedPage>
+                <AuthPage />
+              </AnimatedPage>
+            }
+          />
+          </Route>
       </Routes>
-    </div>
+    </AnimatePresence>
   );
 }
 
 export default function App() {
   const [loading, setLoading] = useState(true);
 
+  // Simulate loading for 3 seconds before showing app
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 3000);
     return () => clearTimeout(timer);
@@ -85,11 +118,11 @@ export default function App() {
         <Loader />
       ) : (
         <Router>
-          <div className="font-sans">
-            <Navbar />
-            <AnimatePresence mode="wait">
-              <AnimatedRoutes />
-            </AnimatePresence>
+          {/* ScrollToTop hook - automatically scrolls to top on route changes */}
+          <ScrollToTop />
+
+          <div className="font-sans bg-neutral-950 min-h-screen">
+            <AppRoutes />
           </div>
         </Router>
       )}

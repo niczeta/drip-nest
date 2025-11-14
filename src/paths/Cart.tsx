@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { CartCard } from "../components/CartCard";
-import { Footer } from "../components/Footer";
-import { ActionButton } from "../components/ActionButton";
 import { ArrowLeft, ShoppingCart } from "lucide-react";
+import { Button } from "../components/Button";
 
 export type Product = {
   id: number;
@@ -15,6 +14,7 @@ export type Product = {
 export const Cart = () => {
   const [cart, setCart] = useState<Product[]>([]);
 
+  // Load cart from localStorage on component mount
   useEffect(() => {
     const storedCart = localStorage.getItem("cart");
     if (storedCart) {
@@ -22,11 +22,13 @@ export const Cart = () => {
     }
   }, []);
 
+  // Update localStorage whenever cart changes
   const updateLocalStorage = (updatedCart: Product[]) => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     setCart(updatedCart);
   };
 
+  // Increase quantity for a product
   const increaseQuantity = (productId: number) => {
     const updatedCart = cart.map((product) =>
       product.id === productId
@@ -36,6 +38,7 @@ export const Cart = () => {
     updateLocalStorage(updatedCart);
   };
 
+  // Decrease quantity for a product, remove if reaches 0
   const decreaseQuantity = (productId: number) => {
     const updatedCart = cart
       .map((product) =>
@@ -47,11 +50,13 @@ export const Cart = () => {
     updateLocalStorage(updatedCart);
   };
 
+  // Remove product from cart completely
   const removeProduct = (productId: number) => {
     const updatedCart = cart.filter((product) => product.id !== productId);
     updateLocalStorage(updatedCart);
   };
 
+  // Calculate total price of all items in cart
   const getTotal = () => {
     return cart
       .reduce((total, product) => {
@@ -67,8 +72,12 @@ export const Cart = () => {
         <div className="w-full max-w-6xl">
           {cart.length > 0 ? (
             <>
+              {/* Cart title */}
               <h1 className="text-3xl font-semibold mt-12 mb-8">Your Shopping Cart</h1>
+              
+              {/* Main cart layout: items on left, summary on right */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* Cart items list */}
                 <div className="lg:col-span-2 space-y-6">
                   {cart.map((product) => (
                     <CartCard
@@ -84,37 +93,47 @@ export const Cart = () => {
                   ))}
                 </div>
 
+                {/* Order summary sidebar */}
                 <div className="bg-neutral-900 p-6 rounded-2xl shadow-lg h-fit">
                   <h2 className="text-2xl font-semibold mb-4">Order Summary</h2>
-                  <div className="flex justify-between mb-4">
-                    <span>Total</span>
-                    <span className="font-bold text-xl">$ {getTotal()}</span>
+                  
+                  {/* Total price display */}
+                  <div className="flex justify-between mb-6 pb-6 border-b border-neutral-700">
+                    <span className="text-lg">Total</span>
+                    <span className="font-bold text-2xl text-red-400">$ {getTotal()}</span>
                   </div>
-                  <ActionButton
+                  
+                  {/* Checkout button using Button component */}
+                  <Button
                     label="Checkout"
                     link="/checkout"
                     icon={<ShoppingCart size={20} />}
+                    variant="primary"
+                    size="md"
+                    fullWidth
                   />
                 </div>
               </div>
             </>
           ) : (
+            // Empty cart state
             <div className="flex flex-col justify-center items-center mt-60 h-full">
               <div className="text-center text-xl opacity-70 mb-6">
                 Your cart is empty.
               </div>
               <div className="mt-6">
-                <ActionButton
+                <Button
                   label="Return to Shop"
                   link="/shop"
                   icon={<ArrowLeft size={20} />}
+                  variant="primary"
+                  size="md"
                 />
               </div>
             </div>
           )}
         </div>
       </section>
-      <Footer />
     </>
   );
 };

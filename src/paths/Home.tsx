@@ -1,8 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import { ContactSection } from "../components/ContactSection";
-import { Footer } from "../components/Footer";
 import { Hero } from "../components/Hero";
-import { Navbar } from "../components/Navbar";
 import { useEffect } from 'react';
 
 export const Home = () => {
@@ -23,10 +21,8 @@ export const Home = () => {
 
   return (
     <div>
-      <Navbar />
       <Hero />
       <ContactSection />
-      <Footer />
     </div>
   );
 };
