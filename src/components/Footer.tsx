@@ -38,7 +38,7 @@ export const Footer = () => {
         {/* Logo section, optional for branding */}
         <div className="flex ml-6 justify-center sm:justify-start mb-6 sm:mb-0">
           <img
-            src="/logo-footer2.png"
+            src="/logo-footer.png"
             className="h-24"
             alt="Drip-Nest logo"
           />

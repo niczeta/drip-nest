@@ -88,7 +88,7 @@ export const Navbar = () => {
       aria-label="Primary"
     >
       {/* Logo */}
-      <img src="/logo.png" className="w-28" alt="logo" />
+      <img src="/logo-navbar.png" className="w-28" alt="logo" />
 
       {/* Desktop Navigation */}
       <ul className="hidden md:flex gap-16 text-sm uppercase" role="menubar">

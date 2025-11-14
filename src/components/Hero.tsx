@@ -15,7 +15,7 @@ export const Hero = () => {
         aria-hidden="true"
         poster="/fallback.jpg"
       >
-        <source src="/jordan-vid.mp4" type="video/mp4" />
+        <source src="/hero-video.mp4" type="video/mp4" />
         Your browser does not support the video.
       </video>
 
