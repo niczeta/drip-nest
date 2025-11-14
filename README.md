@@ -44,7 +44,7 @@ This project demonstrates:
 ### Installation
 
 Clone the repository  
-`git clone https://github.com/YOUR_USERNAME/drip-nest.git`
+`git clone https://github.com/niczeta/drip-nest.git`
 
 Navigate to project  
 `cd drip-nest`
