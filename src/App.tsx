@@ -27,6 +27,7 @@ function AnimatedPage({ children }: { children: React.ReactNode }) {
       transition={{ duration: 0.4 }}
       className="bg-neutral-950"
     >
+      <ScrollToTop />
       {children}
     </motion.div>
   );
@@ -39,65 +40,15 @@ function AppRoutes() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        {/* Layout wrapper that includes Navbar and Footer */}
         <Route element={<Layout />}>
-          <Route
-            path="/"
-            element={
-              <AnimatedPage>
-                <Home />
-              </AnimatedPage>
-            }
-          />
-          <Route
-            path="/shop"
-            element={
-              <AnimatedPage>
-                <Shop />
-              </AnimatedPage>
-            }
-          />
-          <Route
-            path="/drops"
-            element={
-              <AnimatedPage>
-                <Drops />
-              </AnimatedPage>
-            }
-          />
-          <Route
-            path="/community"
-            element={
-              <AnimatedPage>
-                <Community />
-              </AnimatedPage>
-            }
-          />
-          <Route
-            path="/cart"
-            element={
-              <AnimatedPage>
-                <Cart />
-              </AnimatedPage>
-            }
-          />
-          <Route
-            path="/checkout"
-            element={
-              <AnimatedPage>
-                <Checkout />
-              </AnimatedPage>
-            }
-          />
-        <Route
-            path="/auth"
-            element={
-              <AnimatedPage>
-                <AuthPage />
-              </AnimatedPage>
-            }
-          />
-          </Route>
+          <Route path="/" element={<AnimatedPage><Home /></AnimatedPage>} />
+          <Route path="/shop" element={<AnimatedPage><Shop /></AnimatedPage>} />
+          <Route path="/drops" element={<AnimatedPage><Drops /></AnimatedPage>} />
+          <Route path="/community" element={<AnimatedPage><Community /></AnimatedPage>} />
+          <Route path="/cart" element={<AnimatedPage><Cart /></AnimatedPage>} />
+          <Route path="/checkout" element={<AnimatedPage><Checkout /></AnimatedPage>} />
+          <Route path="/auth" element={<AnimatedPage><AuthPage /></AnimatedPage>} />
+        </Route>
       </Routes>
     </AnimatePresence>
   );
@@ -106,7 +57,6 @@ function AppRoutes() {
 export default function App() {
   const [loading, setLoading] = useState(true);
 
-  // Simulate loading for 3 seconds before showing app
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 3000);
     return () => clearTimeout(timer);
@@ -118,9 +68,6 @@ export default function App() {
         <Loader />
       ) : (
         <Router>
-          {/* ScrollToTop hook - automatically scrolls to top on route changes */}
-          <ScrollToTop />
-
           <div className="font-sans bg-neutral-950 min-h-screen">
             <AppRoutes />
           </div>

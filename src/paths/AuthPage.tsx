@@ -55,7 +55,6 @@ export const AuthPage = () => {
       newErrors.password = "Password must be at least 6 characters";
     }
 
-    // Additional validations for Sign Up mode only
     if (mode === "signup") {
       // Username validation - required and minimum length
       if (!formData.username.trim()) {
@@ -76,7 +75,6 @@ export const AuthPage = () => {
         newErrors.terms = "You must accept the terms and conditions";
       }
     }
-
     return newErrors;
   };
 
@@ -101,13 +99,11 @@ export const AuthPage = () => {
     e.preventDefault();
     const validationErrors = validateForm();
 
-    // Stop submission if validation errors exist
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
 
-    // Simulate authentication process
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
@@ -116,7 +112,6 @@ export const AuthPage = () => {
           ? "Welcome back! Redirecting..."
           : "Account created! Redirecting..."
       );
-      // Redirect to home page after success message displays
       setTimeout(() => {
         setSuccessMessage("");
         setFormData({
@@ -156,9 +151,7 @@ export const AuthPage = () => {
       {/* Auth form section */}
       <section className="bg-neutral-950 text-white px-4 py-8 flex items-center justify-center min-h-[calc(100vh-200px)]">
         <div className="w-full max-w-md">
-          {/* Form card */}
           <div className="bg-neutral-900 rounded-lg p-8 shadow-xl border border-neutral-800">
-            {/* Form header with title and subtitle */}
             <div className="text-center mb-8">
               <h2 className="text-3xl sm:text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-red-600">
                 {mode === "login" ? "Sign In" : "Create Account"}
@@ -170,7 +163,6 @@ export const AuthPage = () => {
               </p>
             </div>
 
-            {/* Success message displayed after successful submission */}
             {successMessage && (
               <div className="mb-6 flex items-center gap-3 p-4 bg-green-500/20 border border-green-500/50 rounded-lg animate-pulse">
                 <svg
@@ -219,7 +211,6 @@ export const AuthPage = () => {
 
             {/* Main authentication form */}
             <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Username field - only shown in Sign Up mode */}
               {mode === "signup" && (
                 <CustomInput
                   type="text"
@@ -235,7 +226,6 @@ export const AuthPage = () => {
                 />
               )}
 
-              {/* Email field - displayed in both Sign In and Sign Up modes */}
               <CustomInput
                 type="email"
                 name="email"
@@ -249,7 +239,7 @@ export const AuthPage = () => {
                 required={true}
               />
 
-              {/* Password field with visibility toggle button */}
+              {/* Password field */}
               <div>
                 <label className="block text-sm font-semibold text-neutral-200 mb-2">
                   Password
@@ -308,9 +298,7 @@ export const AuthPage = () => {
                     {/* Eye icon button to toggle confirm password visibility */}
                     <button
                       type="button"
-                      onClick={() =>
-                        setShowConfirmPassword(!showConfirmPassword)
-                      }
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                       disabled={isLoading}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-red-400 transition disabled:opacity-50"
                     >
@@ -325,7 +313,6 @@ export const AuthPage = () => {
                 </div>
               )}
 
-              {/* Forgot password link - only shown in Sign In mode */}
               {mode === "login" && (
                 <div className="text-right">
                   <button
@@ -337,7 +324,6 @@ export const AuthPage = () => {
                 </div>
               )}
 
-              {/* Terms and conditions checkbox - only shown in Sign Up mode */}
               {mode === "signup" && (
                 <>
                   <div className="flex items-center gap-2 p-3 bg-neutral-800/50 rounded-lg border border-neutral-700">
@@ -394,31 +380,6 @@ export const AuthPage = () => {
                 disabled={isLoading}
               />
             </form>
-
-            {/* Divider between form and social login options */}
-            <div className="flex items-center gap-3 my-6">
-              <div className="flex-1 h-px bg-gradient-to-r from-neutral-700 to-transparent"></div>
-              <span className="text-neutral-500 text-xs font-medium">OR</span>
-              <div className="flex-1 h-px bg-gradient-to-l from-neutral-700 to-transparent"></div>
-            </div>
-
-            {/* Social login buttons - Google and Discord */}
-            <div className="space-y-3">
-              <button
-                type="button"
-                className="w-full py-2.5 px-4 bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all transform hover:scale-105 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={isLoading}
-              >
-                🔵 Continue with Google
-              </button>
-              <button
-                type="button"
-                className="w-full py-2.5 px-4 bg-[#5865F2] text-white font-semibold rounded-lg hover:bg-[#4752C4] transition-all transform hover:scale-105 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={isLoading}
-              >
-                🟣 Continue with Discord
-              </button>
-            </div>
 
             {/* Toggle button to switch between Sign In and Sign Up forms */}
             <p className="text-center text-neutral-400 text-sm mt-8">
